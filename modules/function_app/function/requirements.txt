@@ -1,0 +1,7 @@
+logging
+os
+re
+requests
+base64
+time
+azure-functions
