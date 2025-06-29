@@ -1,16 +1,33 @@
 # Azure Firewall Policy Rule Update Automation
 
+## Table of contents
+
+* [Introduction](#introduction)
+* [Requirements](#requirements)
+* [GitHub Repository](#github-repository)
+* [Terraform](#terraform)
+
 ## Introduction
 
-The following project configures an Azure Function to update the rules in one Azure Firewall Policy from the list of IP Address Ranges published by an IP Address Range Repository.
+The following project provisions an Azure Function App that updates the rules defined in one Azure Firewall Policy with a list of updated IP Address Ranges published by an IP Address Range Repository.
 
-The Azure Function does not update the Azure Firewall Policy resource, instead creates a Pull Request in the Git Repository that contains the Terraform code of the Azure Firewall Policy.
+The Azure Function App does not update the Azure Firewall Policy resource, instead creates a Pull Request in the Git Repository that contains the Terraform code of the Azure Firewall Policy.
 
-The project makes use of the IP Address Range Repository "Azure IP Ranges and Service Tags – Public Cloud": https://www.microsoft.com/en-us/download/details.aspx?id=56519.
+The Azure Function is configured with an example IP Address Range Repository "Azure IP Ranges and Service Tags – Public Cloud": https://www.microsoft.com/en-us/download/details.aspx?id=56519. The IP address ranges are extracted from the service tag feed downloadable file.
+
+## Requirements
+
+- Terraform
 
 ## GitHub Repository
 
 Create a GitHub repository and push in the main branch the content of the directory "repository".
+
+Generate a Fine-grained PAT Token in the GitHub account.
+
+The Fine-grained token must be configured with the following Repository permissions:
+- Read access to metadata
+- Read and Write access to code (Contents), pull requests, and workflows
 
 ## Terraform
 
@@ -36,11 +53,7 @@ The variable "github_repository_name" corresponds to the name of the GitHub Repo
 
 The variable "github_repository_owner" corresponds to the name of the GitHub account that owns the GitHub Repository.
 
-Generate a Fine-grained PAT Token in the GitHub account and assign the value to the variable "github_personal_access_token".
-
-The Fine-grained token must be configured with the following Repositoy permissions:
-- Read access to metadata
-- Read and Write access to code (Contents), pull requests, and workflows
+The variable "github_personal_access_token" corresponds to the GitHub PAT Token created in the previous step.
 
 ### Terraform Project Initialization
 
